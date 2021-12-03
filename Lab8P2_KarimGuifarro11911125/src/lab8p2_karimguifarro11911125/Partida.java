@@ -63,7 +63,7 @@ public class Partida implements Serializable{
 
     @Override
     public String toString() {
-        return "Partida{" + "nombre=" + nombre + ", Fecha=" + Fecha + ", estrellas=" + estrellas + ", jugadores=" + jugadores + '}';
+        return nombre;
     }
     
 }
