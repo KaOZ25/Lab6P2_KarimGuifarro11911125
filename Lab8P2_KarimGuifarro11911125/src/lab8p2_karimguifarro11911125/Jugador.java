@@ -5,11 +5,13 @@
  */
 package lab8p2_karimguifarro11911125;
 
+import java.io.Serializable;
+
 /**
  *
  * @author karim
  */
-public class Jugador {
+public class Jugador implements Serializable{
     String nombre;
     int velocidad;
 
