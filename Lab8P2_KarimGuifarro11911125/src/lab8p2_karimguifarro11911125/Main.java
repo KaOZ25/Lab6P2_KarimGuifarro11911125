@@ -50,9 +50,9 @@ public class Main extends javax.swing.JFrame {
         jProgressBar1 = new javax.swing.JProgressBar();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        players = new javax.swing.JComboBox<>();
         jButton6 = new javax.swing.JButton();
-        jComboBox5 = new javax.swing.JComboBox<>();
+        stars = new javax.swing.JComboBox<>();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         tab1 = new javax.swing.JTabbedPane();
@@ -75,16 +75,21 @@ public class Main extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        Edesc = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         Cestrella = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        Espin = new javax.swing.JSpinner();
         jLabel6 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        Ename = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
 
         juego.setMinimumSize(new java.awt.Dimension(533, 441));
+        juego.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                juegoComponentShown(evt);
+            }
+        });
 
         jLabel10.setText("Partida:");
 
@@ -132,6 +137,11 @@ public class Main extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jButton6.setText("Agregar");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
 
         jButton8.setText("Comenzar");
 
@@ -182,13 +192,13 @@ public class Main extends javax.swing.JFrame {
                                 .addGap(21, 21, 21)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-                                    .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(players, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(31, 31, 31)
                                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                                    .addComponent(jComboBox5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(stars, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -221,9 +231,9 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jButton9))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(players, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6)
-                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(stars, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(64, 64, 64))
         );
 
@@ -382,11 +392,16 @@ public class Main extends javax.swing.JFrame {
 
         jLabel5.setText("Distancia:");
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(10, 10, 100, 1));
+        Espin.setModel(new javax.swing.SpinnerNumberModel(10, 10, 100, 1));
 
         jLabel6.setText("Nombre:");
 
         jButton5.setText("Crear Estrella");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -405,8 +420,8 @@ public class Main extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(Espin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                            .addComponent(Edesc, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(85, 85, 85)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -420,7 +435,7 @@ public class Main extends javax.swing.JFrame {
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(Ename, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(37, 37, 37))))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -432,7 +447,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Edesc, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(Cestrella, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -440,10 +455,10 @@ public class Main extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Ename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Espin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
@@ -466,6 +481,7 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         juego.setVisible(true);
+        par=(Partida)Cpartida.getSelectedItem();
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void tab1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tab1StateChanged
@@ -549,11 +565,42 @@ public class Main extends javax.swing.JFrame {
             ap.escribirArchivo();
             aj.escribirArchivo();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error al guardar la Partida");
+            JOptionPane.showMessageDialog(null, "Error al guardar el Jugador");
         }
-        JOptionPane.showMessageDialog(null, "Partida guardada exitosamente");
+        JOptionPane.showMessageDialog(null, "Jugador guardado exitosamente");
         Jname.setText("");
     }//GEN-LAST:event_jButton7MouseClicked
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+       String nombre=Ename.getText(),descripcion=Edesc.getText();
+       int distancia=(int) Espin.getValue();
+       adminEstrella ae=
+                   new  adminEstrella("./Estrella.cbm");
+         ae.cargarArchivo();
+        Estrella p = new Estrella(nombre,distancia,descripcion);
+        ae.getListaEstrella().add(p);
+         ArrayList<Estrella> estrellas=new ArrayList();
+         estrellas.add(p);
+         adminPartida ap = new adminPartida("./Partida.cbm");
+         ap.cargarArchivo();
+         ap.getListaPartida().get(Cjugador.getSelectedIndex()).setEstrellas(estrellas);
+        try {
+            ap.escribirArchivo();
+            ae.escribirArchivo();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al guardar la Estrella");
+        }
+        JOptionPane.showMessageDialog(null, "Estrella guardada exitosamente");
+        Jname.setText("");
+    }//GEN-LAST:event_jButton5MouseClicked
+
+    private void juegoComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_juegoComponentShown
+     
+    }//GEN-LAST:event_juegoComponentShown
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6MouseClicked
 
     /**
      * @param args the command line arguments
@@ -594,8 +641,11 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> Cestrella;
     private javax.swing.JComboBox<String> Cjugador;
     private javax.swing.JComboBox<String> Cpartida;
+    private javax.swing.JTextField Edesc;
     private javax.swing.JButton Editar;
     private javax.swing.JButton Eliminar;
+    private javax.swing.JTextField Ename;
+    private javax.swing.JSpinner Espin;
     private javax.swing.JTextField Jname;
     private javax.swing.JSpinner Jspin;
     private javax.swing.JTextField Pname;
@@ -606,8 +656,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -633,14 +681,14 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JFrame juego;
+    private javax.swing.JComboBox<String> players;
+    private javax.swing.JComboBox<String> stars;
     private javax.swing.JTabbedPane tab1;
     // End of variables declaration//GEN-END:variables
 int pos;
+Partida par;
 public void comboP(){
      adminPartida ap=
                    new  adminPartida("./Partida.cbm");
