@@ -67,9 +67,9 @@ public class Main extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        Jname = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jSpinner2 = new javax.swing.JSpinner();
+        Jspin = new javax.swing.JSpinner();
         jLabel9 = new javax.swing.JLabel();
         Cjugador = new javax.swing.JComboBox<>();
         jButton7 = new javax.swing.JButton();
@@ -325,11 +325,16 @@ public class Main extends javax.swing.JFrame {
 
         jLabel8.setText("Velocidad:");
 
-        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(1, 1, 15, 1));
+        Jspin.setModel(new javax.swing.SpinnerNumberModel(1, 1, 50, 1));
 
         jLabel9.setText("Partida");
 
         jButton7.setText("Crear Jugador");
+        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton7MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -339,9 +344,9 @@ public class Main extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                    .addComponent(Jname, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                     .addComponent(jLabel8)
-                    .addComponent(jSpinner2))
+                    .addComponent(Jspin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel9)
@@ -358,13 +363,13 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Jname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Cjugador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Jspin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton7))
                 .addContainerGap(89, Short.MAX_VALUE))
         );
@@ -466,6 +471,10 @@ public class Main extends javax.swing.JFrame {
     private void tab1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tab1StateChanged
         if (tab1.getSelectedIndex()==0) {
            comboP();
+        }else if(tab1.getSelectedIndex()==1){
+           comboJ();
+        }else if(tab1.getSelectedIndex()==2){
+           comboE();
         }
     }//GEN-LAST:event_tab1StateChanged
 
@@ -503,6 +512,8 @@ public class Main extends javax.swing.JFrame {
         ap.escribirArchivo();
         JOptionPane.showMessageDialog(this, "Alumno Eliminado exitosamente");
         comboP();
+        comboJ();
+        comboE();
     }//GEN-LAST:event_EliminarMouseClicked
 
     private void EditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditarMouseClicked
@@ -511,14 +522,38 @@ public class Main extends javax.swing.JFrame {
         Partida temp=(Partida) modelo.getElementAt(Cpartida.getSelectedIndex());
         temp.setNombre(nombre);
         Cpartida.setModel(modelo);
-        
         adminPartida ap = new adminPartida("./Partida.cbm");
         ap.cargarArchivo();
         ap.getListaPartida().get(Cpartida.getSelectedIndex()).setNombre(nombre);
         ap.escribirArchivo();
         JOptionPane.showMessageDialog(this, "Alumno Modificado exitosamente");
         comboP();
+        comboJ();
+        comboE();
     }//GEN-LAST:event_EditarMouseClicked
+
+    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
+       String nombre=Jname.getText();
+       int velocidad=(int) Jspin.getValue();
+       adminJugador aj=
+                   new  adminJugador("./Jugador.cbm");
+         aj.cargarArchivo();
+        Jugador p = new Jugador(nombre,velocidad);
+        aj.getListaJugador().add(p);
+         ArrayList<Jugador> jugadores=new ArrayList();
+         jugadores.add(p);
+         adminPartida ap = new adminPartida("./Partida.cbm");
+         ap.cargarArchivo();
+         ap.getListaPartida().get(Cjugador.getSelectedIndex()).setJugadores(jugadores);
+        try {
+            ap.escribirArchivo();
+            aj.escribirArchivo();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al guardar la Partida");
+        }
+        JOptionPane.showMessageDialog(null, "Partida guardada exitosamente");
+        Jname.setText("");
+    }//GEN-LAST:event_jButton7MouseClicked
 
     /**
      * @param args the command line arguments
@@ -561,6 +596,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> Cpartida;
     private javax.swing.JButton Editar;
     private javax.swing.JButton Eliminar;
+    private javax.swing.JTextField Jname;
+    private javax.swing.JSpinner Jspin;
     private javax.swing.JTextField Pname;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
@@ -597,11 +634,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JFrame juego;
     private javax.swing.JTabbedPane tab1;
     // End of variables declaration//GEN-END:variables
@@ -614,5 +649,23 @@ public void comboP(){
                     = new DefaultComboBoxModel(
                             ap.getListaPartida().toArray());
             Cpartida.setModel(modelo);
+}
+public void comboJ(){
+     adminPartida ap=
+                   new  adminPartida("./Partida.cbm");
+                   ap.cargarArchivo();
+                    DefaultComboBoxModel modelo
+                    = new DefaultComboBoxModel(
+                            ap.getListaPartida().toArray());
+            Cjugador.setModel(modelo);
+}
+public void comboE(){
+     adminPartida ap=
+                   new  adminPartida("./Partida.cbm");
+                   ap.cargarArchivo();
+                    DefaultComboBoxModel modelo
+                    = new DefaultComboBoxModel(
+                            ap.getListaPartida().toArray());
+            Cestrella.setModel(modelo);
 }
 }
