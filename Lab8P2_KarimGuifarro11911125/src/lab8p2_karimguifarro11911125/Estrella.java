@@ -51,7 +51,7 @@ public class Estrella implements Serializable{
 
     @Override
     public String toString() {
-        return "Estrella{" + "nombre=" + nombre + ", distancia=" + distancia + ", descripcion=" + descripcion + '}';
+        return nombre;
     }
     
 }

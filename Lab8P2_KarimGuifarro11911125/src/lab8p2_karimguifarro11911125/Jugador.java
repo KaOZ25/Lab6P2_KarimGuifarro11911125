@@ -41,7 +41,7 @@ public class Jugador implements Serializable{
 
     @Override
     public String toString() {
-        return "Jugador{" + "nombre=" + nombre + ", velocidad=" + velocidad + '}';
+        return nombre ;
     }
     
 }
