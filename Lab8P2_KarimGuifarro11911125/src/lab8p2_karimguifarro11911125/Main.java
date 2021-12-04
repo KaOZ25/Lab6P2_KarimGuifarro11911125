@@ -48,7 +48,7 @@ public class Main extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        PB1 = new javax.swing.JProgressBar();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         players = new javax.swing.JComboBox<>();
@@ -146,8 +146,18 @@ public class Main extends javax.swing.JFrame {
         });
 
         jButton8.setText("Comenzar");
+        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton8MouseClicked(evt);
+            }
+        });
 
         jButton9.setText("Pausar");
+        jButton9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton9MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -155,7 +165,7 @@ public class Main extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(PB1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -224,7 +234,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jLabel12)
                     .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PB1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
@@ -625,6 +635,33 @@ public class Main extends javax.swing.JFrame {
                     jTable1.setModel(m);
     }//GEN-LAST:event_jButton6MouseClicked
 
+    private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
+
+        DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
+        int vel=(int) tm.getValueAt(pos, 1);
+        int dist=(int) tm.getValueAt(pos, 3);
+        jLabel18.setText(tm.getValueAt(pos, 2).toString());
+         jLabel16.setText(tm.getValueAt(pos, 0).toString());
+          jLabel17.setText(tm.getValueAt(pos, 3).toString());
+        HD= new hilo(PB1,jLabel19,vel,dist);
+        HD.start();
+        tm.setValueAt("Jugando", pos, 4);
+        pos++;
+    }//GEN-LAST:event_jButton8MouseClicked
+
+    private void jButton9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseClicked
+        boolean flag;
+        flag=true;
+        int el=0;
+        DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
+        //tm.setValueAt("Pausa", pos, 4);
+        if (flag==true) {
+            el=1;
+            HD.setAvanzar(false);
+        }
+       
+    }//GEN-LAST:event_jButton9MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -671,6 +708,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JSpinner Espin;
     private javax.swing.JTextField Jname;
     private javax.swing.JSpinner Jspin;
+    private javax.swing.JProgressBar PB1;
     private javax.swing.JTextField Pname;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
@@ -702,7 +740,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
@@ -711,11 +748,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> stars;
     private javax.swing.JTabbedPane tab1;
     // End of variables declaration//GEN-END:variables
-int pos;
+int pos=0;
 Partida par;
 Jugador jug;
+hilo HD;
 Estrella est;
 String estatus;
+Object row[];
 public void comboP(){
      adminPartida ap=
                    new  adminPartida("./Partida.cbm");
